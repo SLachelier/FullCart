@@ -9,21 +9,28 @@ const appSettings = {
   databaseURL: "https://full-cart-app-default-rtdb.firebaseio.com/", //database url
 };
 
-const app = initializeApp(appSettings); //initializes firebase app
-const database = getDatabase(app); //gets database from firebase app
-const dbRef = ref(database); //gets reference to database
+const app = initializeApp(appSettings);
+const database = getDatabase(app);
+const shoppingListInDB = ref(database, "shoppingList");
 
 const inputFieldEl = document.getElementById("input-field");
-let button = document.getElementById("add-button"); //obtains button element
-const listEl = document.getElementById("shopping-list"); //obtains ul element
+const addButtonEl = document.getElementById("add-button");
+const shoppingListEl = document.getElementById("shopping-list");
 
-button.addEventListener("click", function addItem() {
-  //executes function addItem() when button is clicked
-  let inputString = inputFieldEl.value; //assigns the input value to inputString
+addButtonEl.addEventListener("click", function () {
+  let inputValue = inputFieldEl.value;
 
-  push(dbRef, inputString); //pushes inputString to the database
+  push(shoppingListInDB, inputValue);
 
-  listEl.innerHTML += `<li>${inputValue}</li>`;
-  //clears the input field when the button is clicked
-  inputFieldEl.value = "";
+  clearInputField();
+
+  addItemToList(inputValue);
 });
+
+function clearInputField() {
+  inputFieldEl.value = "";
+}
+
+function addItemToList(itemValue) {
+  shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
+}
