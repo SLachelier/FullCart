@@ -26,7 +26,7 @@ addButtonEl.addEventListener("click", function () {
   addItemToList(inputValue);
 });
 
-onValue(shoppingListInDB, function(snapshot) => {
+onValue(shoppingListInDB, function(snapshot) {
   let itemsArray = Object.values(snapshot.val());
   console.log(itemsArray);
 });
