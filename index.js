@@ -23,13 +23,23 @@ addButtonEl.addEventListener("click", function () {
 
   push(shoppingListInDB, inputValue);
   clearInputField();
-  addItemToList(inputValue);
 });
 
-onValue(shoppingListInDB, function(snapshot) {
+onValue(shoppingListInDB, function (snapshot) {
   let itemsArray = Object.values(snapshot.val());
-  console.log(itemsArray);
+
+  clearList();
+
+  shoppingListEl.innerHTML = ""; //clears the list before adding the items from the database
+  for(let i = 0; i < itemsArray.length; i++){
+    addItemToList(itemsArray[i]);
+  }
+  
 });
+
+function clearList() {
+  shoppingListEl.innerHTML = ""; //clears the list before adding the items from the database
+}
 
 function clearInputField() {
   inputFieldEl.value = "";
