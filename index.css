@@ -66,8 +66,13 @@ input, button { /* Input field and button with same styling */
   text-align: center;
 }
 
+p {
+  font-weight: 600;
+  color: #17303f;
+}
+
 ul {
-  margin-top: 30px;
+  margin-top: 25px;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -91,5 +96,6 @@ ul li:hover {
   background: #e2e2e2;
   box-shadow: #1f3136 0px 0px 8px;
   transition-duration: .3s;
+  cursor: pointer;
 
 }

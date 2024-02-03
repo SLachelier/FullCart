@@ -4,6 +4,7 @@ import {
   ref,
   push,
   onValue,
+  remove,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"; //imports getDatabase function from firebase
 
 const appSettings = {
@@ -26,16 +27,20 @@ addButtonEl.addEventListener("click", function () {
 });
 
 onValue(shoppingListInDB, function (snapshot) {
-  let itemsArray = Object.entries(snapshot.val());
+  if (snapshot.exists()) {
+    let itemsArray = Object.entries(snapshot.val());
 
-  clearList();
+    clearList();
 
-  shoppingListEl.innerHTML = ""; //clears the list before adding the items from the database
-  for(let i = 0; i < itemsArray.length; i++){
-    let currentItem = itemsArray[i];
-    let currentItemID = currentItem[0];
-    let currentItemValue = currentItem[1];
-    addItemToList(currentItemValue);
+    shoppingListEl.innerHTML = ""; //clears the list before adding the items from the database
+    for(let i = 0; i < itemsArray.length; i++){
+      let currentItem = itemsArray[i]; //currentItem is an array with two elements: the key and the value of the item in the database
+      let currentItemID = currentItem[0];
+      let currentItemValue = currentItem[1];
+      addItemToList(currentItem);
+    }
+  }else {
+    shoppingListEl.innerHTML = `<p>There are no items here yet. Add one to get started!</p>`;
   }
   
 });
@@ -48,10 +53,18 @@ function clearInputField() {
   inputFieldEl.value = "";
 }
 
-function addItemToList(itemValue) {
-  // shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
+function addItemToList(item) {
+  let itemID = item[0]; //item[0] is the key of the item in the database
+  let itemValue = item[1]; //item[1] is the value of the item in the database
+
   let newListItemEl = document.createElement("li");
   newListItemEl.textContent = itemValue;
 
-  shoppingListEl.appendChild(newListItemEl);
+  newListItemEl.addEventListener('click', function (){
+    let dbItemLocation = ref(database, `shoppingList/${itemID}`);
+    remove(dbItemLocation);
+
+  })
+    shoppingListEl.appendChild(newListItemEl);
+
 }
