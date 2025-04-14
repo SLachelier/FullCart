@@ -1,2 +1,2 @@
 # Full-Cart
- A mobile app for creating easily accessible shopping lists.
+ A web app for creating easily accessible shopping lists that can be viewed, shared and changed in real-time.
