@@ -2,11 +2,11 @@
  A web app for creating easily accessible shopping lists that can be viewed, shared and edited in real-time.
 
 ## Table of Contents:
-- Preview
-- Installation
-- Usage
-- Contributing
-- License
+- [Preview](#preview)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Preview:
  ![Full Cart Preview](https://i.gyazo.com/8f5721daf4146663eedb5ef1e712d8ed.png)
